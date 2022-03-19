@@ -60,6 +60,7 @@
                   }}</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
+            
               <v-text-field
                 v-model="search"
                 clearable
@@ -74,37 +75,47 @@
         </v-dialog>
       </v-toolbar>
     </div>
+      <span>hiii</span>
+              {{ cart[0].name }}
     <router-view />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent, ref } from "@vue/runtime-core";
+import { useStore } from "vuex";
 export default defineComponent({
   name: "custom-header",
-  data() {
+  setup() {
+    const store = useStore();
+    const dialog = ref(false);
+    const nav = ref([
+      {
+        icon: "home-outline",
+        text: "Home",
+        title: "Back to Home page",
+        active: true,
+      },
+      {
+        icon: "cart-outline",
+        text: `Cart`,
+        title: "Our Contact info",
+        active: false,
+      },
+      {
+        icon: "logout",
+        text: "Logout",
+        title: "Logout",
+        active: false,
+      },
+    ]);
+    const cart = computed(() => {
+      return store.getters.cart;
+    });
     return {
-      dialog: false,
-      nav: [
-        {
-          icon: "home-outline",
-          text: "Home",
-          title: "Back to Home page",
-          active: true,
-        },
-        {
-          icon: "cart-outline",
-          text: "Cart",
-          title: "Our Contact info",
-          active: false,
-        },
-        {
-          icon: "logout",
-          text: "Logout",
-          title: "Logout",
-          active: false,
-        },
-      ],
+      cart,
+      nav,
+      dialog,
     };
   },
 });

@@ -37,7 +37,7 @@ export default class ProductModule extends VuexModule implements IProduct {
             data.qty = this.SelectedProduct.length + 1
             this.SelectedProduct.push(data)
         } else {
-            this.SelectedProduct.map((ele) => ele.id === data.id ? ele.qty = ele.qty + 1  : (data.qty = data.qty + 1, this.SelectedProduct.push(data)))
+            this.SelectedProduct.map((ele) => ele.id === data.id ? ele.qty = ele.qty + 1 : (data.qty = data.qty + 1, this.SelectedProduct.push(data)))
         }
     }
 
