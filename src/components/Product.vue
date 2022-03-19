@@ -41,6 +41,7 @@
     title="Edit Product"
     :product="product"
     @close="closeedit"
+    @submit="checkedit"
   />
 </template>
 
@@ -58,8 +59,8 @@ export default defineComponent({
       selection: 1,
     };
   },
-  components:{
-    Modal
+  components: {
+    Modal,
   },
   props: {
     product: {
@@ -76,10 +77,14 @@ export default defineComponent({
       isedit.value = true;
       store.dispatch(Actions.IS_MODAL, { isOpen: true });
     };
+    const checkedit = (product: IProduct) => {
+      console.log(product, "this is edit");
+    };
     return {
       isedit,
       closeedit,
       edit,
+      checkedit
     };
   },
 });
