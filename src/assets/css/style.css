@@ -1,0 +1,40 @@
+v-list-tile {
+    display: block;
+    padding: 10px;
+  }
+  .menu-item {
+    color: #fff !important;
+  }
+  v-list-tile-title {
+    margin-left: 10px;
+  }
+  v-list-tile:hover {
+    background: #ccc;
+    color: #fff;
+  }
+  .v-toolbar-title {
+    text-align: center;
+    color: #fff;
+  }
+  .text-white {
+    color: #fff;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+  }
+  .v-card-actions {
+    justify-content: center;
+  }
+  .btn {
+    display: flex;
+    align-items: center;
+  }
+  .text-white {
+    color: #fff !important;
+  }
+  .amount {
+    display: flex;
+    align-items: center;
+  }
