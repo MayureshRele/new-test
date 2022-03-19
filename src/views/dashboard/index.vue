@@ -70,31 +70,19 @@ export default defineComponent({
     };
     const productsController = reactive({
       emptyproduct: {
-        id:0,
-        name:"",
-        description:"",
-        image:"",
-        price:0,
-        qty:0
+        id: 0,
+        name: "",
+        description: "",
+        image: "",
+        price: 0,
+        qty: 0,
       },
       create(product: IProduct) {
         store.dispatch(Actions.ADD_PRODUCT, product);
       },
       editproduct(product: IProduct) {
-         console.log(product, "this is roduct");
-        // store.dispatch(Actions.EDIT_PRODUCT, product);
-        // productsController.products = productsController.products.map(
-        //   (existingProduct: any) => {
-        //     console.log({existingProduct});
-        //     console.log({product});
-        //     // if (product.id === existingProduct.id) {
-        //     //   productsController.product = {};
-        //     //   return product;
-        //     // } else {
-        //     //   return existingProduct;
-        //     // }
-        //   }
-        // );
+        console.log(product, "this is roduct");
+        store.dispatch(Actions.EDIT_PRODUCT, product);
       },
     });
     return {

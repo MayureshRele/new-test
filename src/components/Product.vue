@@ -67,7 +67,7 @@ export default defineComponent({
       type: Object as PropType<IProduct>,
     },
   },
-  setup() {
+  setup(_,emitter) {
     const store = useStore();
     const isedit = ref(false);
     const closeedit = () => {
@@ -79,6 +79,7 @@ export default defineComponent({
     };
     const checkedit = (product: IProduct) => {
       console.log(product, "this is edit");
+      emitter.emit("editproductData" , product)
     };
     return {
       isedit,
