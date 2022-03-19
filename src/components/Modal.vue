@@ -1,6 +1,6 @@
 <template>
   <div class="formContainer">
-    <v-dialog  persistent v-model="isModal" :id="id">
+    <v-dialog persistent v-model="isModal" id="id">
       <v-card width="500">
         <v-card-title>
           <span class="text-h5">{{ title }}</span>
@@ -10,34 +10,34 @@
             <v-row no-gutters>
               <v-col cols="12" class="p-0">
                 <Input
-                  v-model="productController.product.name"
+                  v-model="productModalController.product.name"
                   type="text"
                   label="Name"
-                  :value="productController.product.name"
+                  :value="productModalController.product.name"
                 />
               </v-col>
               <v-col cols="12" class="p-0">
                 <Input
-                  v-model="productController.product.description"
+                  v-model="productModalController.product.description"
                   type="text"
                   label="Description"
-                  :value="productController.product.description"
+                  :value="productModalController.product.description"
                 />
               </v-col>
               <v-col cols="12" class="p-0">
                 <Input
-                  v-model="productController.product.image"
+                  v-model="productModalController.product.image"
                   type="text"
                   label="Image"
-                  :value="productController.product.image"
+                  :value="productModalController.product.image"
                 />
               </v-col>
               <v-col cols="12" class="p-0">
                 <Input
-                  v-model="productController.product.price"
+                  v-model="productModalController.product.price"
                   type="text"
                   label="Price"
-                  :value="productController.product.price"
+                  :value="productModalController.product.price"
                 />
               </v-col>
             </v-row>
@@ -46,7 +46,11 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="closeModal"> Close </v-btn>
-          <v-btn color="blue darken-1" text @click="productController.submit">
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="productModalController.submit"
+          >
             Save
           </v-btn>
         </v-card-actions>
@@ -57,7 +61,7 @@
 
 <script lang="ts" >
 import { Actions } from "@/store/enums/StoreEnums";
-import { computed, defineComponent, reactive } from "vue";
+import { computed, defineComponent, PropType, reactive } from "vue";
 import Input from "./Input.vue";
 import { useStore } from "vuex";
 import { IProduct } from "@/interface/IProduct";
@@ -70,11 +74,14 @@ export default defineComponent({
     title: {
       type: String,
     },
+    product: {
+      type: Object as PropType<IProduct>,
+    },
   },
   components: {
     Input,
   },
-  setup(_, emitter) {
+  setup(props, emitter) {
     const store = useStore();
     const isModal = computed(() => {
       return store.getters.Ismodal;
@@ -85,17 +92,20 @@ export default defineComponent({
       store.dispatch(Actions.IS_MODAL, { isOpen: false });
     };
 
-    const productController = reactive({
-      product: {} as IProduct,
+    const productModalController = reactive({
+      product: props.product as IProduct,
       submit() {
-        emitter.emit("submit", productController.product);
+        emitter.emit(
+          "submit",
+          JSON.parse(JSON.stringify(productModalController.product))
+        );
       },
     });
 
     return {
       isModal,
       closeModal,
-      productController,
+      productModalController,
     };
   },
 });

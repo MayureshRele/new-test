@@ -13,33 +13,43 @@
       alt="https://randomwordgenerator.com/img/picture-generator/52e9d3414854aa14f1dc8460962e33791c3ad6e04e507441722a72dd964bc7_640.jpg"
     ></v-img>
 
-    <v-card-title>{{product.name}}</v-card-title>
-<v-card-text>{{product.description}}</v-card-text>
+    <v-card-title>{{ product.name }}</v-card-title>
+    <v-card-text>{{ product.description }}</v-card-text>
     <v-divider class="mx-4"></v-divider>
     <div class="card-footer my-4">
       <div class="d-flex">
         <v-card-title>Price</v-card-title>
-        <div class="amount">${{product.price}}</div>
+        <div class="amount">${{ product.price }}</div>
       </div>
-      <div class="btn px-4">
-        <v-btn
-          :loading="loading3"
-          :disabled="loading3"
-          color="blue-grey lighten-2"
-          class="text-white"
-          @click="loader = 'loading3'"
-        >
-          Add to Cart
-          <v-icon right> mdi-cart-outline </v-icon>
+
+      <div class="action-btn">
+        <v-btn icon @click="edit">
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+        <v-btn icon>
+          <v-icon>mdi-trash-can-outline</v-icon>
+        </v-btn>
+        <v-btn icon>
+          <v-icon>mdi-plus-thick</v-icon>
         </v-btn>
       </div>
     </div>
   </v-card>
+  <Modal
+    id="edit"
+    v-if="isedit"
+    title="Edit Product"
+    :product="product"
+    @close="closeedit"
+  />
 </template>
 
 <script lang="ts">
 import { IProduct } from "@/interface/IProduct";
-import { defineComponent, PropType } from "vue";
+import { useStore } from "vuex";
+import { Actions } from "@/store/enums/StoreEnums";
+import Modal from "./Modal.vue";
+import { defineComponent, PropType, reactive, ref } from "@vue/runtime-core";
 export default defineComponent({
   name: "card-custom",
   data() {
@@ -48,11 +58,30 @@ export default defineComponent({
       selection: 1,
     };
   },
+  components:{
+    Modal
+  },
   props: {
-    product:{
+    product: {
       type: Object as PropType<IProduct>,
-    }
-  }
+    },
+  },
+  setup() {
+    const store = useStore();
+    const isedit = ref(false);
+    const closeedit = () => {
+      isedit.value = false;
+    };
+    const edit = () => {
+      isedit.value = true;
+      store.dispatch(Actions.IS_MODAL, { isOpen: true });
+    };
+    return {
+      isedit,
+      closeedit,
+      edit,
+    };
+  },
 });
 </script>
 

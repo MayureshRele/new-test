@@ -1,8 +1,8 @@
 export interface IProduct {
-    id:Number | undefined,
+    id:number | undefined,
     name: string,
     description: string,
     image: string,
-    qty:Number,
-    price:Number | undefined
+    qty:number,
+    price:number | undefined
 }

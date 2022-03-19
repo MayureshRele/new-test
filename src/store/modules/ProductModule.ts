@@ -50,8 +50,7 @@ export default class ProductModule extends VuexModule implements IProduct {
     @Action
     [Actions.EDIT_PRODUCT](payload: IProduct) {
         if (payload) {
-            payload.id = this.ProductList.length + 1;
-            this.context.commit(Mutations.SET_PRODUCT, payload);
+            this.ProductList.map((ele) => ele.id === payload.id ? { ...payload } : ele)
         }
     }
 
