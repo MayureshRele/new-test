@@ -1,6 +1,6 @@
 <template>
   <div class="formContainer">
-    <v-dialog persistent v-model="isModal" id="id">
+    <v-dialog persistent scrollable v-model="isModal" id="id">
       <v-card width="500">
         <v-card-title>
           <span class="text-h5">{{ title }}</span>
@@ -99,6 +99,7 @@ export default defineComponent({
           "submit",
           JSON.parse(JSON.stringify(productModalController.product))
         );
+        closeModal();
       },
     });
 

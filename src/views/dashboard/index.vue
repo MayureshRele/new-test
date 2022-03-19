@@ -1,17 +1,32 @@
 <template>
   <v-container>
-    <v-row no-gutters>
-      <v-btn @click="open"> click me </v-btn>
-      <Modal
-        id="add"
-        v-if="isadd"
-        title="Add Product"
-        :product="productsController.emptyproduct"
-        @submit="productsController.create"
-        @close="closeadd"
-      />
-      <v-col cols="12" sm="12" md="6" lg="4" v-if="Products.length > 0">
-        <div class="product-card" v-for="product in Products" :key="product.id">
+    <!-- <v-btn @click="open">Add Product </v-btn> -->
+    <Button
+      depressed
+      color="blue-grey darken-3"
+      class="text-white"
+      label="Add Product"
+      @click="open"
+      type="submit"
+    />
+    <Modal
+      id="add"
+      v-if="isadd"
+      title="Add Product"
+      :product="productsController.emptyproduct"
+      @submit="productsController.create"
+      @close="closeadd"
+    />
+    <v-row no-gutters v-if="Products.length > 0">
+      <v-col
+        cols="12"
+        sm="12"
+        md="6"
+        lg="4"
+        v-for="product in Products"
+        :key="product.id"
+      >
+        <div class="product-card">
           <Product
             :product="product"
             @editproduct="productsController.update"
@@ -24,17 +39,18 @@
 
 <script lang="ts">
 import { useStore } from "vuex";
-import { defineComponent, computed, isProxy } from "@vue/runtime-core";
+import { defineComponent, computed, isProxy, reactive, ref } from "@vue/runtime-core";
 import { IProduct } from "../../interface/IProduct";
 import Product from "../../components/Product.vue";
 import Modal from "../../components/Modal.vue";
-import { reactive, ref } from "vue";
+import Button from '@/components/Button.vue'
 import { Actions } from "@/store/enums/StoreEnums";
 export default defineComponent({
   name: "dash-Board",
   components: {
     Product,
     Modal,
+    Button
   },
   setup() {
     const store = useStore();
@@ -99,5 +115,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-</style>
+<style></style>

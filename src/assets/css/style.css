@@ -49,3 +49,6 @@ v-list-tile {
     overflow: auto !important;
   }
  
+  .cartItem{
+    width:250px;
+  }

@@ -23,13 +23,13 @@
       </div>
 
       <div class="action-btn">
-        <v-btn icon @click="edit">
+        <v-btn icon @click="edit" class="mx-2">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn icon class="mx-2">
           <v-icon>mdi-trash-can-outline</v-icon>
         </v-btn>
-        <v-btn icon @click="addToCart">
+        <v-btn icon @click="addToCart" class="mx-2">
           <v-icon>mdi-plus-thick</v-icon>
         </v-btn>
       </div>
@@ -84,7 +84,7 @@ export default defineComponent({
 
     const addToCart = () => {
       console.log(props.product , "this is product in product");
-      debugger;
+
       store.dispatch(Actions.ADD_TO_CART, props.product);
     };
     return {

@@ -11,9 +11,8 @@
               <v-form @submit="formController.LoginUser">
                 <Input
                   v-model="formController.email"
-                  type="text"
-                  placeholder="email"
-                  label="email"
+                  type="email"
+                  label="Email"
                   :value="formController.email"
                 />
                 <div class="text-center">

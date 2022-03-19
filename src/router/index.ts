@@ -8,6 +8,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/auth/signIn.vue')
   },
   {
+    path: "/cart",
+    name: "cart",
+    component: () => import('../components/CartModal.vue')
+  },
+  {
     path: '/dashBoard',
     name: 'home',
     component: initialLayout,

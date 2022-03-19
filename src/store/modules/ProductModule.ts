@@ -32,7 +32,7 @@ export default class ProductModule extends VuexModule implements IProduct {
     }
     @Mutation
     [Mutations.SET_CART](data: IProduct) {
-        debugger;
+    
         if (this.SelectedProduct.length === 0) {
             data.qty = this.SelectedProduct.length + 1
             this.SelectedProduct.push(data)
@@ -61,7 +61,7 @@ export default class ProductModule extends VuexModule implements IProduct {
 
     @Action
     [Actions.ADD_TO_CART](payload: IProduct) {
-        debugger;
+    
         if (payload) {
             this.context.commit(Mutations.SET_CART, payload);
         }
