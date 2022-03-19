@@ -29,7 +29,7 @@
         <v-btn icon>
           <v-icon>mdi-trash-can-outline</v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn icon @click="addToCart">
           <v-icon>mdi-plus-thick</v-icon>
         </v-btn>
       </div>
@@ -67,7 +67,7 @@ export default defineComponent({
       type: Object as PropType<IProduct>,
     },
   },
-  setup(_,emitter) {
+  setup(props, emitter) {
     const store = useStore();
     const isedit = ref(false);
     const closeedit = () => {
@@ -79,13 +79,20 @@ export default defineComponent({
     };
     const checkedit = (product: IProduct) => {
       console.log(product, "this is edit");
-      emitter.emit("editproductData" , product)
+      emitter.emit("editproductData", product);
+    };
+
+    const addToCart = () => {
+      console.log(props.product , "this is product in product");
+      debugger;
+      store.dispatch(Actions.ADD_TO_CART, props.product);
     };
     return {
       isedit,
       closeedit,
       edit,
-      checkedit
+      checkedit,
+      addToCart
     };
   },
 });
