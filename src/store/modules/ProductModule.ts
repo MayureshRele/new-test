@@ -1,6 +1,6 @@
 import { Module, Mutation, VuexModule, Action } from "vuex-module-decorators";
 import { Actions, Mutations } from "@/store/enums/StoreEnums";
-import { IProduct } from '../../interfaces/IProduct'
+import { IProduct } from '../../interface/IProduct'
 
 @Module
 export default class ProductModule extends VuexModule implements IProduct {

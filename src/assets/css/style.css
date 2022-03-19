@@ -16,10 +16,6 @@ v-list-tile {
     text-align: center;
     color: #fff;
   }
-  .text-white {
-    color: #fff;
-  }
-
   .card-footer {
     display: flex;
     justify-content: space-between;
@@ -38,3 +34,14 @@ v-list-tile {
     display: flex;
     align-items: center;
   }
+
+  .v-form {
+    width: 500px;
+  }
+  .formContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+ 

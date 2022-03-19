@@ -3,7 +3,12 @@ import initialLayout from '../layouts/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
+    path: "/",
+    name: "sign-in",
+    component: () => import('../views/auth/signIn.vue')
+  },
+  {
+    path: '/dashBoard',
     name: 'home',
     component: initialLayout,
     children: [
