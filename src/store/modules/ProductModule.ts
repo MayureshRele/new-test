@@ -9,6 +9,7 @@ export default class ProductModule extends VuexModule implements IProduct {
     description = "";
     image = "";
     qty = 0
+    price = 0
     ProductList: IProduct[] = [];
     SelectedProduct: IProduct[] = [];
 
@@ -37,7 +38,10 @@ export default class ProductModule extends VuexModule implements IProduct {
 
     @Action
     [Actions.ADD_PRODUCT](payload: IProduct) {
+        console.log("myload", payload);
+
         if (payload) {
+            { { payload } }
             payload.id = this.ProductList.length + 1;
             this.context.commit(Mutations.SET_PRODUCT, payload);
         }

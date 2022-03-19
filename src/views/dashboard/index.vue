@@ -2,9 +2,16 @@
   <v-container>
     <v-row no-gutters>
       <v-btn @click="open"> click me </v-btn>
-      <Modal v-if="isadd" id="add" title="Add Product" @close="closeadd" />
-      <v-col cols="12" sm="12" md="6" lg="4">
-        <Product />
+      <Modal
+        @submit="productsController.create"
+        v-if="isadd"
+        id="add"
+        title="Add Product"
+      />
+      <v-col cols="12" sm="12" md="6" lg="4" v-if="Products.length > 0">
+        <div class="product-card" v-for="product in Products" :key="product.id">
+          <Product :product="product" />
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -38,33 +45,29 @@ export default defineComponent({
     const closeadd = () => {
       isadd.value = false;
     };
-    // const productsController = reactive({
-    //   product: {},
-    //   products: Products,
-    //   addProduct() {
-    //     isAddOpen.value = true;
-    //     store.dispatch(Actions.IS_MODAL, { isOpen: true });
-    //   },
-    //   create(product: IProduct) {
-    //     debugger;
-    //     store.dispatch(Actions.ADD_PRODUCT, product);
-    //   },
-    //   update(product: IProduct) {
-    //     productsController.products = productsController.products.map(
-    //       (existingProduct: any) => {
-    //         if (product.id === existingProduct.id) {
-    //           productsController.product = {};
-    //           return product;
-    //         } else {
-    //           return existingProduct;
-    //         }
-    //       }
-    //     );
-    //   },
-    // });
+    const productsController = reactive({
+      product: {},
+      create(product: IProduct) {
+        store.dispatch(Actions.ADD_PRODUCT, product);
+      },
+      // update(product: IProduct) {
+      //   productsController.products = productsController.products.map(
+      //     (existingProduct: any) => {
+      //       if (product.id === existingProduct.id) {
+      //         productsController.product = {};
+      //         return product;
+      //       } else {
+      //         return existingProduct;
+      //       }
+      //     }
+      //   );
+      // },
+    });
     return {
       isadd,
       open,
+      productsController,
+      Products,
     };
   },
 });

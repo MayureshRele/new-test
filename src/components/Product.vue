@@ -7,19 +7,19 @@
         indeterminate
       ></v-progress-linear>
     </template>
-
     <v-img
       height="250"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+      :src="product.image"
+      alt="https://randomwordgenerator.com/img/picture-generator/52e9d3414854aa14f1dc8460962e33791c3ad6e04e507441722a72dd964bc7_640.jpg"
     ></v-img>
 
-    <v-card-title>Cafe Badilico</v-card-title>
-
+    <v-card-title>{{product.name}}</v-card-title>
+<v-card-text>{{product.description}}</v-card-text>
     <v-divider class="mx-4"></v-divider>
     <div class="card-footer my-4">
       <div class="d-flex">
         <v-card-title>Price</v-card-title>
-        <div class="amount">$500</div>
+        <div class="amount">${{product.price}}</div>
       </div>
       <div class="btn px-4">
         <v-btn
@@ -38,7 +38,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { IProduct } from "@/interface/IProduct";
+import { defineComponent, PropType } from "vue";
 export default defineComponent({
   name: "card-custom",
   data() {
@@ -47,14 +48,11 @@ export default defineComponent({
       selection: 1,
     };
   },
-
-  methods: {
-    reserve() {
-      this.loading = true;
-
-      setTimeout(() => (this.loading = false), 2000);
-    },
-  },
+  props: {
+    product:{
+      type: Object as PropType<IProduct>,
+    }
+  }
 });
 </script>
 

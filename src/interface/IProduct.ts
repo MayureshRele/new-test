@@ -3,5 +3,6 @@ export interface IProduct {
     name: string,
     description: string,
     image: string,
-    qty:Number
+    qty:Number,
+    price:Number | undefined
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="formContainer">
-    <v-dialog persistent v-model="isModal" :id="id">
+    <v-dialog  persistent v-model="isModal" :id="id">
       <v-card width="500">
         <v-card-title>
           <span class="text-h5">{{ title }}</span>
@@ -46,7 +46,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="closeModal"> Close </v-btn>
-          <v-btn color="blue darken-1" text @click="dialog = false">
+          <v-btn color="blue darken-1" text @click="productController.submit">
             Save
           </v-btn>
         </v-card-actions>
@@ -60,6 +60,7 @@ import { Actions } from "@/store/enums/StoreEnums";
 import { computed, defineComponent, reactive } from "vue";
 import Input from "./Input.vue";
 import { useStore } from "vuex";
+import { IProduct } from "@/interface/IProduct";
 export default defineComponent({
   name: "modal-test",
   props: {
@@ -85,16 +86,8 @@ export default defineComponent({
     };
 
     const productController = reactive({
-      product: {
-        email: "",
-        name: "",
-        description: "",
-        image: "",
-        price: "",
-        qty: 0,
-      },
+      product: {} as IProduct,
       submit() {
-        debugger;
         emitter.emit("submit", productController.product);
       },
     });
