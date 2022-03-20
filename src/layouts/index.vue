@@ -29,7 +29,7 @@
                 }}<v-icon class="ml-2">mdi-cart-outline</v-icon></v-btn
               ></v-badge
             > -->
-            <v-btn
+            <v-btn  @click="modalController.open"
               >Cart{{ Products
               }}<v-icon class="ml-2">mdi-cart-outline</v-icon></v-btn
             >
@@ -77,7 +77,7 @@
                   <v-icon>mdi-cart-outline</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                  <v-list-tile-title>Cart</v-list-tile-title>
+                  <v-list-tile-title @click="modalController.open" >Cart</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
@@ -102,19 +102,33 @@
         </v-dialog>
       </v-toolbar>
     </div>
+    <CartModal
+      id="cart"
+      v-if="isCartModal"
+      title="Checkout"
+      :product="Products"
+      @close="modalController.close"
+    />
     <router-view />
   </div>
 </template>
 
 <script lang="ts">
 import { IProduct } from "@/interface/IProduct";
+import { Actions } from "@/store/enums/StoreEnums";
+import CartModal from "../components/CartModal.vue";
 import { computed, defineComponent, ref } from "@vue/runtime-core";
+import { reactive } from "vue";
 import { useStore } from "vuex";
 export default defineComponent({
   name: "custom-header",
+  components: {
+    CartModal,
+  },
   setup() {
     const store = useStore();
     const dialog = ref(false);
+    const isCartModal = ref(false);
     const nav = ref([
       {
         icon: "home-outline",
@@ -135,18 +149,31 @@ export default defineComponent({
         active: false,
       },
     ]);
+
+    const modalController = reactive({
+      open() {
+        isCartModal.value = true;
+        store.dispatch(Actions.IS_MODAL, { isOpen: true });
+      },
+      close() {
+        isCartModal.value = false;
+      },
+    });
     const Products = computed(() => {
-      let totalCount = 0;
-      let cartArray = store.getters.cartList;
-      cartArray.forEach((element: IProduct) => {
-        totalCount += element.qty;
-      });
-      return totalCount;
+      return store.getters.cartList;
+      // let totalCount = 0;
+      // let cartArray = store.getters.cartList;
+      // cartArray.forEach((element: IProduct) => {
+      //   totalCount += element.qty;
+      // });
+      // return totalCount;
     });
     return {
       Products,
       nav,
       dialog,
+      modalController,
+      isCartModal
     };
   },
 });

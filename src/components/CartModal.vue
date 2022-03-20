@@ -1,18 +1,7 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="dialog">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="red lighten-2"
-          dark
-          v-bind="attrs"
-          v-on="on"
-          @click="dialog = true"
-        >
-          Click Me
-        </v-btn>
-      </template>
-      <v-card>
+    <v-dialog v-model="isModal" id="id">
+      <v-card v-for="item in product" :key="item.id" >
         <v-toolbar dark color="blue-grey darken-3">
           <v-toolbar-title class="text-white">Shopping Cart</v-toolbar-title>
         </v-toolbar>
@@ -26,12 +15,12 @@
               contain
             ></v-img>
             <div class="d-flex flex-column justify-center ml-5 cartItem">
-              <div class="grey--text text-darken-1 mb-2">Lorem Ipsum</div>
+              <div class="grey--text text-darken-1 mb-2">{{item.name}}</div>
               <div
                 class="text-truncate grey--text text-darken-1 mb-2"
                 style="max-width: 200px"
               >
-                Lorem Ipsum Lorem Ipsum Lorem Ipsum
+               {{item.description}}
               </div>
             </div>
             <div class="quantity d-flex align-center ml-5">
@@ -48,14 +37,9 @@
         <v-divider></v-divider>
 
         <v-card-actions>
-          <Button
-            depressed
-            color="blue-grey darken-3"
-            class="mx-5"
-            label="Pay Now"
-            type="submit"
-            @click="dialog = false"
-          />
+          <v-btn color="blue darken-1" text @click="modalController.close">
+            Pay Now
+          </v-btn>
           <v-spacer></v-spacer>
           <div class="grey--text text-darken-1">Cart Total</div>
           <v-card-text class="text-h6">$5000</v-card-text>
@@ -66,15 +50,51 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent, PropType, reactive } from "vue";
 import Button from "@/components/Button.vue";
+import { IProduct } from "@/interface/IProduct";
+import { useStore } from "vuex";
+import { Actions } from "@/store/enums/StoreEnums";
 export default defineComponent({
-  components: {
-    Button,
+  props: {
+    id: {
+      type: String,
+    },
+    title: {
+      type: String,
+    },
+    product: {
+      type: Object as PropType<IProduct>,
+    },
   },
-  data() {
+  setup(props, emitter) {
+    const store = useStore();
+    const isModal = computed(() => {
+      return store.getters.Ismodal;
+    });
+
+    const modalController = reactive({
+      close() {
+        emitter.emit("close");
+        store.dispatch(Actions.IS_MODAL, { isOpen: false });
+      },
+    });
+
+    const productModalController = reactive({
+      product: props.product as IProduct,
+      submit() {
+        emitter.emit(
+          "submit",
+          JSON.parse(JSON.stringify(productModalController.product))
+        );
+        modalController.close();
+      },
+    });
+
     return {
-      dialog: false,
+      isModal,
+      modalController,
+      productModalController,
     };
   },
 });
