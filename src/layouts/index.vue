@@ -19,17 +19,19 @@
           <div class="menu-item">
             <v-btn>Home<v-icon class="ml-2">mdi-home-outline</v-icon></v-btn>
 
-            <v-badge
-              v-if="cart.length !== 0"
+            <!-- <v-badge
+              v-if="Products.length !== 0"
               color="primary"
-              content="5"
+              :content="Products.length"
             >
               <v-btn
-                >Cart<v-icon class="ml-2">mdi-cart-outline</v-icon></v-btn
+                >Cart{{ Products.length
+                }}<v-icon class="ml-2">mdi-cart-outline</v-icon></v-btn
               ></v-badge
-            >
-            <v-btn v-else
-              >Cart<v-icon class="ml-2">mdi-cart-outline</v-icon></v-btn
+            > -->
+            <v-btn
+              >Cart{{ Products
+              }}<v-icon class="ml-2">mdi-cart-outline</v-icon></v-btn
             >
 
             <v-btn>Logout<v-icon class="ml-2">mdi-logout</v-icon></v-btn>
@@ -62,17 +64,6 @@
             </v-toolbar>
 
             <v-list>
-              <!-- <v-list-tile v-for="(item, index) in nav" :key="index" to="#">
-                <v-list-tile-action>
-                  <v-icon v-if="item.icon">mdi-{{ item.icon }}</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-list-tile-title :title="item.title">{{
-                    item.text
-                  }}</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile> -->
-
               <v-list-tile>
                 <v-list-tile-action>
                   <v-icon>mdi-home-outline</v-icon>
@@ -111,13 +102,12 @@
         </v-dialog>
       </v-toolbar>
     </div>
-    <!-- <span>hiii</span>
-              {{ cart[0].name }} -->
     <router-view />
   </div>
 </template>
 
 <script lang="ts">
+import { IProduct } from "@/interface/IProduct";
 import { computed, defineComponent, ref } from "@vue/runtime-core";
 import { useStore } from "vuex";
 export default defineComponent({
@@ -145,11 +135,16 @@ export default defineComponent({
         active: false,
       },
     ]);
-    const cart = computed(() => {
-      return store.getters.cart;
+    const Products = computed(() => {
+      let totalCount = 0;
+      let cartArray = store.getters.cartList;
+      cartArray.forEach((element: IProduct) => {
+        totalCount += element.qty;
+      });
+      return totalCount;
     });
     return {
-      cart,
+      Products,
       nav,
       dialog,
     };

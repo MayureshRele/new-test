@@ -22,7 +22,7 @@ export default class ProductModule extends VuexModule implements IProduct {
         return this.ProductList
     }
 
-    get cart(): IProduct[] {
+   get cartList(): IProduct[] {
         return this.SelectedProduct
     }
 
