@@ -2,13 +2,16 @@
   <div class="formContainer">
     <v-dialog persistent scrollable v-model="isModal" id="id">
       <v-card width="500">
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="closeModal"><v-icon>mdi-close</v-icon> </v-btn>
+        </v-toolbar>
         <v-card-title>
           <span class="text-h5">{{ title }}</span>
         </v-card-title>
         <v-card-text>
           <v-container>
-            <v-row no-gutters>
-              <v-col cols="12" class="p-0">
+            <v-row>
+              <v-col cols="12" sm="6">
                 <Input
                   v-model="productModalController.product.name"
                   type="text"
@@ -16,7 +19,7 @@
                   :value="productModalController.product.name"
                 />
               </v-col>
-              <v-col cols="12" class="p-0">
+              <v-col cols="12" sm="6">
                 <Input
                   v-model="productModalController.product.description"
                   type="text"
@@ -24,7 +27,7 @@
                   :value="productModalController.product.description"
                 />
               </v-col>
-              <v-col cols="12" class="p-0">
+              <v-col cols="12" sm="6">
                 <Input
                   v-model="productModalController.product.image"
                   type="text"
@@ -32,10 +35,10 @@
                   :value="productModalController.product.image"
                 />
               </v-col>
-              <v-col cols="12" class="p-0">
+              <v-col cols="12" sm="6">
                 <Input
                   v-model="productModalController.product.price"
-                  type="text"
+                  type="number"
                   label="Price"
                   :value="productModalController.product.price"
                 />

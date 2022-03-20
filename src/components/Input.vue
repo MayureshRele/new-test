@@ -6,6 +6,7 @@
     variant="outlined"
     v-bind="$attrs"
     v-on="on"
+    :type="type"
   ></v-text-field>
 </template>
 
