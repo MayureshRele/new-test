@@ -41,7 +41,6 @@ import { useStore } from "vuex";
 import {
   defineComponent,
   computed,
-  isProxy,
   reactive,
   ref,
 } from "@vue/runtime-core";

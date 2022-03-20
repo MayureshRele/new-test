@@ -23,13 +23,13 @@
       </div>
 
       <div class="action-btn">
-        <v-btn icon @click="edit" class="mx-2">
+        <v-btn icon @click="modalController.open" class="mx-2">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
         <v-btn icon class="mx-2">
           <v-icon>mdi-trash-can-outline</v-icon>
         </v-btn>
-        <v-btn icon @click="addToCart" class="mx-2">
+        <v-btn icon @click="productListController.addToCart" class="mx-2">
           <v-icon>mdi-plus-thick</v-icon>
         </v-btn>
       </div>
@@ -37,11 +37,11 @@
   </v-card>
   <Modal
     id="edit"
-    v-if="isedit"
+    v-if="isEditModal"
     title="Edit Product"
     :product="product"
-    @close="closeedit"
-    @submit="checkedit"
+    @close="modalController.close"
+    @submit="productListController.checkedit"
   />
 </template>
 
@@ -69,30 +69,30 @@ export default defineComponent({
   },
   setup(props, emitter) {
     const store = useStore();
-    const isedit = ref(false);
-    const closeedit = () => {
-      isedit.value = false;
-    };
-    const edit = () => {
-      isedit.value = true;
-      store.dispatch(Actions.IS_MODAL, { isOpen: true });
-    };
-    const checkedit = (product: IProduct) => {
-      console.log(product, "this is edit");
-      emitter.emit("editproductData", product);
-    };
+    const isEditModal = ref(false);
+    const modalController = reactive({
+      open() {
+        isEditModal.value = true;
+        store.dispatch(Actions.IS_MODAL, { isOpen: true });
+      },
+      close() {
+        isEditModal.value = false;
+      },
+    });
+    
+    const productListController = reactive({
+      addToCart() {
+        store.dispatch(Actions.ADD_TO_CART, props.product);
+      },
+      checkedit(product: IProduct) {
+        emitter.emit("editproductData", product);
+      },
+    });
 
-    const addToCart = () => {
-      console.log(props.product , "this is product in product");
-
-      store.dispatch(Actions.ADD_TO_CART, props.product);
-    };
     return {
-      isedit,
-      closeedit,
-      edit,
-      checkedit,
-      addToCart
+      isEditModal,
+      modalController,
+      productListController,
     };
   },
 });
