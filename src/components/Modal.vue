@@ -92,11 +92,6 @@ export default defineComponent({
       return store.getters.Ismodal;
     });
 
-    // const closeModal = () => {
-    //   emitter.emit("close");
-    //   store.dispatch(Actions.IS_MODAL, { isOpen: false });
-    // };
-
     const modalController = reactive({
       close() {
         emitter.emit("close");
