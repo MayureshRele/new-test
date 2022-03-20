@@ -1,21 +1,20 @@
 <template>
   <v-container>
-    <!-- <v-btn @click="open">Add Product </v-btn> -->
     <Button
       depressed
       color="blue-grey darken-3"
       class="text-white"
       label="Add Product"
-      @click="open"
+      @click="modalController.open"
       type="submit"
     />
     <Modal
       id="add"
-      v-if="isadd"
+      v-if="isAddModal"
       title="Add Product"
       :product="productsController.emptyproduct"
       @submit="productsController.create"
-      @close="closeadd"
+      @close="modalController.close"
     />
     <v-row no-gutters v-if="Products.length > 0">
       <v-col
@@ -39,26 +38,31 @@
 
 <script lang="ts">
 import { useStore } from "vuex";
-import { defineComponent, computed, isProxy, reactive, ref } from "@vue/runtime-core";
+import {
+  defineComponent,
+  computed,
+  isProxy,
+  reactive,
+  ref,
+} from "@vue/runtime-core";
 import { IProduct } from "../../interface/IProduct";
 import Product from "../../components/Product.vue";
 import Modal from "../../components/Modal.vue";
-import Button from '@/components/Button.vue'
+import Button from "@/components/Button.vue";
 import { Actions } from "@/store/enums/StoreEnums";
 export default defineComponent({
   name: "dash-Board",
   components: {
     Product,
     Modal,
-    Button
+    Button,
   },
-  setup() {
+  setup(props, emitter) {
     const store = useStore();
     const Products = computed(() => {
       return store.getters.products;
     });
-    const isadd = ref(false);
-    const isedit = ref(false);
+    const isAddModal = ref(false);
     const EditProduct = ref<IProduct>({
       id: 0,
       name: "",
@@ -67,23 +71,16 @@ export default defineComponent({
       description: "",
       image: "",
     });
-    const open = () => {
-      isadd.value = true;
-      store.dispatch(Actions.IS_MODAL, { isOpen: true });
-    };
-    const edit = () => {
-      isedit.value = true;
-      store.dispatch(Actions.IS_MODAL, { isOpen: true });
-    };
-    const closeedit = () => {
-      console.log("close");
 
-      isedit.value = false;
-    };
-
-    const closeadd = () => {
-      isadd.value = false;
-    };
+    const modalController = reactive({
+      open() {
+        isAddModal.value = true;
+        store.dispatch(Actions.IS_MODAL, { isOpen: true });
+      },
+      close() {
+        isAddModal.value = false;
+      },
+    });
     const productsController = reactive({
       emptyproduct: {
         id: 0,
@@ -102,14 +99,11 @@ export default defineComponent({
       },
     });
     return {
-      isadd,
-      open,
+      isAddModal,
       productsController,
       Products,
-      edit,
+      modalController,
       EditProduct,
-      closeadd,
-      closeedit,
     };
   },
 });
