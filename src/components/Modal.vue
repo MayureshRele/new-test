@@ -3,7 +3,9 @@
     <v-dialog persistent scrollable v-model="isModal" id="id">
       <v-card width="500">
         <v-toolbar dark color="primary">
-          <v-btn icon dark @click="closeModal"><v-icon>mdi-close</v-icon> </v-btn>
+          <v-btn icon dark @click="modalController.close"
+            ><v-icon>mdi-close</v-icon>
+          </v-btn>
         </v-toolbar>
         <v-card-title>
           <span class="text-h5">{{ title }}</span>
@@ -48,7 +50,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="closeModal"> Close </v-btn>
+          <v-btn color="blue darken-1" text @click="modalController.close"> Close </v-btn>
           <v-btn
             color="blue darken-1"
             text
@@ -90,10 +92,17 @@ export default defineComponent({
       return store.getters.Ismodal;
     });
 
-    const closeModal = () => {
-      emitter.emit("close");
-      store.dispatch(Actions.IS_MODAL, { isOpen: false });
-    };
+    // const closeModal = () => {
+    //   emitter.emit("close");
+    //   store.dispatch(Actions.IS_MODAL, { isOpen: false });
+    // };
+
+    const modalController = reactive({
+      close() {
+        emitter.emit("close");
+        store.dispatch(Actions.IS_MODAL, { isOpen: false });
+      },
+    });
 
     const productModalController = reactive({
       product: props.product as IProduct,
@@ -102,13 +111,13 @@ export default defineComponent({
           "submit",
           JSON.parse(JSON.stringify(productModalController.product))
         );
-        closeModal();
+        modalController.close();
       },
     });
 
     return {
       isModal,
-      closeModal,
+      modalController,
       productModalController,
     };
   },
