@@ -30,8 +30,7 @@
               ></v-badge
             > -->
             <v-btn  @click="modalController.open"
-              >Cart{{ Products
-              }}<v-icon class="ml-2">mdi-cart-outline</v-icon></v-btn
+              >Cart<v-icon class="ml-2">mdi-cart-outline</v-icon></v-btn
             >
 
             <v-btn>Logout<v-icon class="ml-2">mdi-logout</v-icon></v-btn>

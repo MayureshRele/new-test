@@ -1,13 +1,13 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="isModal" id="id">
-      <v-card v-for="item in product" :key="item.id" >
+    <v-dialog v-model="isModal" id="id" scrollable="true">
+      <v-card >
         <v-toolbar dark color="blue-grey darken-3">
           <v-toolbar-title class="text-white">Shopping Cart</v-toolbar-title>
         </v-toolbar>
         <v-divider></v-divider>
         <v-divider></v-divider>
-        <v-card-text>
+        <v-card-text v-for="item in product" :key="item.id">
           <div class="cartContainer d-flex">
             <v-img
               src="https://picsum.photos/510/300?random"
