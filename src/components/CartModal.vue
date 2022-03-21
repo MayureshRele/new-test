@@ -38,7 +38,7 @@
         </div>
         <div class="empty-cart" v-else>
           <v-card-text>
-            <h1>Ops youre cart is empy</h1>
+            <h1>Ops! you're cart is empty</h1>
           </v-card-text>
         </div>
 
@@ -46,7 +46,7 @@
 
         <v-card-actions>
           <v-btn color="blue darken-1" text @click="modalController.close">
-            Pay Now
+            Close
           </v-btn>
           <v-spacer></v-spacer>
           <div class="grey--text text-darken-1">Cart Total</div>
@@ -61,7 +61,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, reactive } from "vue";
-import Button from "@/components/Button.vue";
 import { IProduct } from "@/interface/IProduct";
 import { useStore } from "vuex";
 import { Actions } from "@/store/enums/StoreEnums";
@@ -104,8 +103,6 @@ export default defineComponent({
 
     const cartModalController = reactive({
       removefromcart(product: IProduct) {
-        console.log({ product });
-
         store.dispatch(Actions.REMOVE_FROM_CART, product);
       },
     });
@@ -119,19 +116,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-.modal {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-.cartImage {
-  width: 100px;
-  height: 100px;
-}
-.cartTitle {
-  display: flex;
-  align-items: center;
-}
-</style>

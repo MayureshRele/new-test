@@ -52,3 +52,18 @@ v-list-tile {
   .cartItem{
     width:250px;
   }
+
+
+  .modal {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .cartImage {
+    width: 100px;
+    height: 100px;
+  }
+  .cartTitle {
+    display: flex;
+    align-items: center;
+  }

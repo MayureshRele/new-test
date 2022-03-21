@@ -143,8 +143,6 @@ export default defineComponent({
     onMounted(() => {
       //check if current user is authenticated
       if (!store.getters.currentUser.isAuthenticated) {
-        console.log("not user");
-
         router.push("/");
       }
     });
