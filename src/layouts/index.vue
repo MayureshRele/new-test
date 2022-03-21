@@ -19,20 +19,15 @@
           <div class="menu-item">
             <v-btn>Home<v-icon class="ml-2">mdi-home-outline</v-icon></v-btn>
 
-            <!-- <v-badge
-              v-if="Products.length !== 0"
+            <v-badge
               color="primary"
-              :content="Products.length"
+              :content="CartCount"
             >
-              <v-btn
-                >Cart{{ Products.length
-                }}<v-icon class="ml-2">mdi-cart-outline</v-icon></v-btn
+              <v-btn @click="modalController.open"
+                >Cart<v-icon class="ml-2">mdi-cart-outline</v-icon></v-btn
               ></v-badge
-            > -->
-            <v-btn  @click="modalController.open"
-              >Cart<v-icon class="ml-2">mdi-cart-outline</v-icon></v-btn
             >
-
+  
             <v-btn>Logout<v-icon class="ml-2">mdi-logout</v-icon></v-btn>
           </div>
         </v-toolbar-items>
@@ -160,19 +155,18 @@ export default defineComponent({
     });
     const Products = computed(() => {
       return store.getters.cartList;
-      // let totalCount = 0;
-      // let cartArray = store.getters.cartList;
-      // cartArray.forEach((element: IProduct) => {
-      //   totalCount += element.qty;
-      // });
-      // return totalCount;
     });
+
+    const CartCount = computed(() => {
+      return store.getters.CartQtyCount
+    })
     return {
       Products,
       nav,
       dialog,
       modalController,
-      isCartModal
+      isCartModal,
+      CartCount
     };
   },
 });

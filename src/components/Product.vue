@@ -82,6 +82,7 @@ export default defineComponent({
     
     const productListController = reactive({
       addToCart() {
+        store.dispatch(Actions.ADD_CART_COUNT);
         store.dispatch(Actions.ADD_TO_CART, props.product);
       },
       checkedit(product: IProduct) {

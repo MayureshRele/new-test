@@ -12,6 +12,7 @@ export default class ProductModule extends VuexModule implements IProduct {
     price = 0
     ProductList: IProduct[] = [];
     SelectedProduct: IProduct[] = [];
+    CartCount = 0
 
     /**
      * Authenticate user
@@ -22,8 +23,12 @@ export default class ProductModule extends VuexModule implements IProduct {
         return this.ProductList
     }
 
-   get cartList(): IProduct[] {
+    get cartList(): IProduct[] {
         return this.SelectedProduct
+    }
+
+    get CartQtyCount() {
+        return this.CartCount
     }
 
     @Mutation
@@ -32,21 +37,23 @@ export default class ProductModule extends VuexModule implements IProduct {
     }
     @Mutation
     [Mutations.SET_CART](data: IProduct) {
-    
         if (this.SelectedProduct.length === 0) {
             data.qty = this.SelectedProduct.length + 1
             this.SelectedProduct.push(data)
         } else {
-            this.SelectedProduct.map((ele) => ele.id === data.id ? ele.qty = ele.qty + 1 : (data.qty = data.qty + 1, this.SelectedProduct.push(data)))
+            this.SelectedProduct.map((ele) => ele.id === data.id ? ( ele.qty = ele.qty + 1) : (data.qty = data.qty + 1, this.SelectedProduct.push(data)))
+
         }
+    }
+
+    @Mutation
+    [Mutations.SET_CART_COUNT]() {
+        this.CartCount += 1
     }
 
     @Action
     [Actions.ADD_PRODUCT](payload: IProduct) {
-        console.log("myload", payload);
-
         if (payload) {
-            { { payload } }
             payload.id = this.ProductList.length + 1;
             this.context.commit(Mutations.SET_PRODUCT, payload);
         }
@@ -61,10 +68,14 @@ export default class ProductModule extends VuexModule implements IProduct {
 
     @Action
     [Actions.ADD_TO_CART](payload: IProduct) {
-    
         if (payload) {
             this.context.commit(Mutations.SET_CART, payload);
         }
+    }
+
+    @Action
+    [Actions.ADD_CART_COUNT]() {
+        this.context.commit(Mutations.SET_CART_COUNT);
     }
 
 }
