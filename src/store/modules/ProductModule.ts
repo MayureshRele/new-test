@@ -42,13 +42,37 @@ export default class ProductModule extends VuexModule implements IProduct {
     }
     @Mutation
     [Mutations.SET_CART](data: IProduct) {
+
         if (this.SelectedProduct.length === 0) {
             data.qty = this.SelectedProduct.length + 1
             this.SelectedProduct.push(data)
         } else {
-            this.SelectedProduct.map((ele) => ele.id === data.id ? (ele.qty = ele.qty + 1) : (data.qty = data.qty + 1, this.SelectedProduct.push(data)))
+            const ifExists = this.SelectedProduct.filter((element) => {
+                return element.name.toLowerCase().includes(data.name.toLowerCase())
+            })
 
+            if (ifExists.length === 0) {
+                data.qty += 1
+                this.SelectedProduct.push(data)
+            }else {
+                ifExists[0].qty += 1
+            }
         }
+        // if (this.SelectedProduct.length === 0) {
+        //     data.qty = this.SelectedProduct.length + 1
+        //     this.SelectedProduct.push(data)
+        // } else {
+        //     this.SelectedProduct.forEach(element => {
+        //         if (element.id === data.id) {
+        //             element.qty += 1
+        //         }
+        //         if (element.id !== data.id) {
+        //             data.qty += 1
+        //             this.SelectedProduct.push(data)
+        //         }
+        //     });
+        // }
+
     }
     @Mutation
     [Mutations.SET_SEARCH_QUERY](data: string) {

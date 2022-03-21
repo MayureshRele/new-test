@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="isModal" id="id" scrollable="true">
+    <v-dialog v-model="isModal" id="id" scrollable>
       <v-card>
         <v-toolbar dark color="blue-grey darken-3">
           <v-toolbar-title class="text-white">Shopping Cart</v-toolbar-title>
