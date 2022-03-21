@@ -50,7 +50,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="modalController.close"> Close </v-btn>
+          <v-btn color="blue darken-1" text @click="modalController.close">
+            Close
+          </v-btn>
           <v-btn
             color="blue darken-1"
             text
@@ -81,6 +83,14 @@ export default defineComponent({
     },
     product: {
       type: Object as PropType<IProduct>,
+      default: (): IProduct => ({
+        id: 0,
+        name: "",
+        description: "",
+        image: "",
+        price: 0,
+        qty: 0,
+      }),
     },
   },
   components: {
