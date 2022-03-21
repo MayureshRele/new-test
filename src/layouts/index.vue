@@ -63,14 +63,19 @@
                 </v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
-                <v-list-tile-action>
-                  <v-icon>mdi-cart-outline</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-list-tile-title @click="modalController.open"
-                    >Cart</v-list-tile-title
-                  >
-                </v-list-tile-content>
+                <div class="d-flex">
+                  <v-list-tile-action>
+                    <v-icon>mdi-cart-outline</v-icon>
+                  </v-list-tile-action>
+                  <v-list-tile-content>
+                    <v-list-tile-title @click="modalController.open"
+                      >Cart</v-list-tile-title
+                    >
+                  </v-list-tile-content>
+                  <div class="mx-2 bg-primary rounded-circle">
+                    <p class="mx-2 p-5">5</p>
+                  </div>
+                </div>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-action>
@@ -80,11 +85,6 @@
                   <v-list-tile-title @click="Logout">Logout</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
-              <v-text-field
-                v-model="search"
-                prepend-inner-icon="mdi-magnify"
-                label="Search"
-              ></v-text-field>
             </v-list>
           </v-card>
         </v-dialog>
