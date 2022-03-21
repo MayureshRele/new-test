@@ -59,9 +59,11 @@ export default defineComponent({
     });
     const Products = computed(() => {
       let productsArray = store.getters.products;
-      let  filteredList = productsArray.filter((product:any) => {
-        return product.name.toLowerCase().includes(searchData.value.toLowerCase())
-      })
+      let filteredList = productsArray.filter((product: any) => {
+        return product.name
+          .toLowerCase()
+          .includes(searchData.value.toLowerCase());
+      });
       return filteredList;
     });
     const isAddModal = ref(false);
@@ -81,6 +83,14 @@ export default defineComponent({
       },
       close() {
         isAddModal.value = false;
+        productsController.emptyproduct = {
+          id: 0,
+          name: "",
+          description: "",
+          image: "",
+          price: 0,
+          qty: 0,
+        };
       },
     });
     const productsController = reactive({
