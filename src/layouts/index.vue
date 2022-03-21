@@ -26,7 +26,9 @@
               ></v-badge
             >
 
-            <v-btn>Logout<v-icon class="ml-2">mdi-logout</v-icon></v-btn>
+            <v-btn @click="Logout"
+              >Logout<v-icon class="ml-2">mdi-logout</v-icon></v-btn
+            >
           </div>
         </v-toolbar-items>
       </v-toolbar>
@@ -79,7 +81,7 @@
                   <v-icon>mdi-logout</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                  <v-list-tile-title>Logout</v-list-tile-title>
+                  <v-list-tile-title @click="Logout">Logout</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
               <v-text-field
@@ -111,9 +113,10 @@
 import { IProduct } from "@/interface/IProduct";
 import { Actions } from "@/store/enums/StoreEnums";
 import CartModal from "../components/CartModal.vue";
-import { computed, defineComponent, ref } from "@vue/runtime-core";
-import { reactive } from "vue";
+import { computed, defineComponent, ref, reactive } from "@vue/runtime-core";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import { onMounted } from "vue";
 export default defineComponent({
   name: "custom-header",
   components: {
@@ -121,6 +124,7 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const router = useRouter();
     const dialog = ref(false);
     const isCartModal = ref(false);
     const search = ref("");
@@ -144,6 +148,14 @@ export default defineComponent({
         active: false,
       },
     ]);
+    onMounted(() => {
+      //check if current user is authenticated
+      if (!store.getters.cuurentUser.isAuthenticated) {
+        console.log("not user");
+
+        router.push("/");
+      }
+    });
 
     const searchData = () => {
       store.dispatch(Actions.SEARCH_QUERY, search.value);
@@ -161,7 +173,10 @@ export default defineComponent({
     const Products = computed(() => {
       return store.getters.cartList;
     });
-
+    const Logout = () => {
+      store.dispatch(Actions.LOGOUT);
+      router.push("/");
+    };
     const CartCount = computed(() => {
       return store.getters.CartQtyCount;
     });
@@ -174,6 +189,7 @@ export default defineComponent({
       CartCount,
       search,
       searchData,
+      Logout,
     };
   },
 });

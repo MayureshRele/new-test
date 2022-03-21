@@ -17,7 +17,8 @@ enum Mutations {
     SET_CART = "SetCart",
     SET_MODAL = "SetModal",
     SET_CART_COUNT = "SetCartCount",
-    SET_SEARCH_QUERY = "SetSearchQuery"
+    SET_SEARCH_QUERY = "SetSearchQuery",
+    SET_LOGOUT_USER = "SetLogOut"
 }
 
 export { Actions, Mutations };
