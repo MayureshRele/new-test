@@ -27,8 +27,8 @@
               <div class="quantity d-flex align-center ml-5">
                 <div class="grey--text text-darken-1 mx-3">{{ item.qty }}</div>
               </div>
-              <div class="d-flex align-center ml-5">
-                <v-icon>mdi-close-circle</v-icon>
+              <div class="d-flex align-center ml-5" @click="cartModalController.removefromcart(item)">
+                <v-icon>mdi-minus</v-icon>
               </div>
             </div>
           </v-card-text>
@@ -85,21 +85,18 @@ export default defineComponent({
       },
     });
 
-    const productModalController = reactive({
-      product: props.product as IProduct,
-      submit() {
-        emitter.emit(
-          "submit",
-          JSON.parse(JSON.stringify(productModalController.product))
-        );
-        modalController.close();
+    const cartModalController = reactive({
+      removefromcart(product:IProduct) {
+        console.log({product});
+        
+      store.dispatch(Actions.REMOVE_FROM_CART, product);
       },
     });
 
     return {
       isModal,
       modalController,
-      productModalController,
+      cartModalController,
     };
   },
 });

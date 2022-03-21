@@ -72,7 +72,16 @@ export default class ProductModule extends VuexModule implements IProduct {
 
     @Mutation
     [Mutations.SET_REMOVE_FROM_CART](data: IProduct) {
-        this.SelectedProduct.splice(this.SelectedProduct.findIndex(product => product.id === data.id), 1)
+        this.SelectedProduct.forEach((element) => {
+            if (data.id === element.id) {
+                if (data.qty === 1) {
+                    this.SelectedProduct.splice(this.SelectedProduct.findIndex(product => product.id === data.id), 1)
+                } else {
+                    element.qty -= 1
+                }
+                this.CartCount -= 1
+            }
+        })
     }
 
     @Mutation
@@ -114,6 +123,7 @@ export default class ProductModule extends VuexModule implements IProduct {
 
     @Action
     [Actions.REMOVE_FROM_CART](payload: IProduct) {
+        debugger;
         store.commit(Mutations.SET_REMOVE_FROM_CART, payload)
     }
 
