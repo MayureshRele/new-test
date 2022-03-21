@@ -87,6 +87,7 @@ export default class ProductModule extends VuexModule implements IProduct {
     @Mutation
     [Mutations.SET_REMOVE_PRODUCT](data: IProduct) {
         this.ProductList.splice(this.ProductList.findIndex(product => product.id === data.id), 1)
+        this.SelectedProduct.splice(this.SelectedProduct.findIndex(product => product.id === data.id), 1)
     }
 
 
