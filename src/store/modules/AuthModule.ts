@@ -41,7 +41,6 @@ export default class AuthModule extends VuexModule implements IUserDetails {
 
     @Action
     [Actions.LOGIN_USER](payload: IUserDetails) {
-        console.log(payload, "this is payload");
         if (payload) {
             this.context.commit(Mutations.SET_USER, payload);
         }

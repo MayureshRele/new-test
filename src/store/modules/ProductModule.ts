@@ -123,7 +123,6 @@ export default class ProductModule extends VuexModule implements IProduct {
 
     @Action
     [Actions.REMOVE_FROM_CART](payload: IProduct) {
-        debugger;
         store.commit(Mutations.SET_REMOVE_FROM_CART, payload)
     }
 

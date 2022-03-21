@@ -110,7 +110,6 @@ export default defineComponent({
         store.dispatch(Actions.ADD_PRODUCT, product);
       },
       editproduct(product: IProduct) {
-        console.log(product, "this is roduct");
         store.dispatch(Actions.EDIT_PRODUCT, product);
       },
     });

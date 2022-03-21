@@ -20,7 +20,6 @@ export default class ModalModule extends VuexModule {
 
   @Action
   [Actions.IS_MODAL](payload: any) {
-    // console.log(payload);
     this.context.commit(Mutations.SET_MODAL, payload);
   }
 }
