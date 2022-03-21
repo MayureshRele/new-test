@@ -2,14 +2,9 @@
   <div class="formContainer">
     <v-dialog persistent scrollable v-model="isModal" id="id">
       <v-card width="500">
-        <v-toolbar dark color="primary">
-          <v-btn icon dark @click="modalController.close"
-            ><v-icon>mdi-close</v-icon>
-          </v-btn>
+        <v-toolbar dark color="blue-grey darken-3">
+          <v-toolbar-title class="text-white">{{title}}</v-toolbar-title>
         </v-toolbar>
-        <v-card-title>
-          <span class="text-h5">{{ title }}</span>
-        </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
