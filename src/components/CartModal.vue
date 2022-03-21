@@ -27,7 +27,10 @@
               <div class="quantity d-flex align-center ml-5">
                 <div class="grey--text text-darken-1 mx-3">{{ item.qty }}</div>
               </div>
-              <div class="d-flex align-center ml-5" @click="cartModalController.removefromcart(item)">
+              <div
+                class="d-flex align-center ml-5"
+                @click="cartModalController.removefromcart(item)"
+              >
                 <v-icon>mdi-minus</v-icon>
               </div>
             </div>
@@ -47,7 +50,9 @@
           </v-btn>
           <v-spacer></v-spacer>
           <div class="grey--text text-darken-1">Cart Total</div>
-          <v-card-text class="text-h6">$5000</v-card-text>
+          <v-card-text class="text-h6"
+            >${{ cartModalController.priceTotal }}</v-card-text
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -78,6 +83,18 @@ export default defineComponent({
       return store.getters.Ismodal;
     });
 
+    const productList = computed(() => {
+      return store.getters.products;
+    });
+
+    const priceTotal = computed(() => {
+      let total = 0;
+      productList.value.forEach((element: any) => {
+        total += element.qty * element.price;
+      });
+      return total
+    });
+
     const modalController = reactive({
       close() {
         emitter.emit("close");
@@ -86,10 +103,10 @@ export default defineComponent({
     });
 
     const cartModalController = reactive({
-      removefromcart(product:IProduct) {
-        console.log({product});
-        
-      store.dispatch(Actions.REMOVE_FROM_CART, product);
+      removefromcart(product: IProduct) {
+        console.log({ product });
+
+        store.dispatch(Actions.REMOVE_FROM_CART, product);
       },
     });
 
@@ -97,6 +114,7 @@ export default defineComponent({
       isModal,
       modalController,
       cartModalController,
+      priceTotal
     };
   },
 });
