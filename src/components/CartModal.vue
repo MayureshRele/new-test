@@ -1,38 +1,43 @@
 <template>
   <div class="text-center">
     <v-dialog v-model="isModal" id="id" scrollable="true">
-      <v-card >
+      <v-card>
         <v-toolbar dark color="blue-grey darken-3">
           <v-toolbar-title class="text-white">Shopping Cart</v-toolbar-title>
         </v-toolbar>
         <v-divider></v-divider>
         <v-divider></v-divider>
-        <v-card-text v-for="item in product" :key="item.id">
-          <div class="cartContainer d-flex">
-            <v-img
-              src="https://picsum.photos/510/300?random"
-              class="cartImage"
-              contain
-            ></v-img>
-            <div class="d-flex flex-column justify-center ml-5 cartItem">
-              <div class="grey--text text-darken-1 mb-2">{{item.name}}</div>
-              <div
-                class="text-truncate grey--text text-darken-1 mb-2"
-                style="max-width: 200px"
-              >
-               {{item.description}}
+        <div class="cart" v-if="product.length > 0">
+          <v-card-text v-for="item in product" :key="item.id">
+            <div class="cartContainer d-flex">
+              <v-img
+                src="https://picsum.photos/510/300?random"
+                class="cartImage"
+                contain
+              ></v-img>
+              <div class="d-flex flex-column justify-center ml-5 cartItem">
+                <div class="grey--text text-darken-1 mb-2">{{ item.name }}</div>
+                <div
+                  class="text-truncate grey--text text-darken-1 mb-2"
+                  style="max-width: 200px"
+                >
+                  {{ item.description }}
+                </div>
+              </div>
+              <div class="quantity d-flex align-center ml-5">
+                <div class="grey--text text-darken-1 mx-3">{{ item.qty }}</div>
+              </div>
+              <div class="d-flex align-center ml-5">
+                <v-icon>mdi-close-circle</v-icon>
               </div>
             </div>
-            <div class="quantity d-flex align-center ml-5">
-              <v-icon>mdi-minus</v-icon>
-              <div class="grey--text text-darken-1 mx-3">1</div>
-              <v-icon>mdi-plus</v-icon>
-            </div>
-            <div class="d-flex align-center ml-5">
-              <v-icon>mdi-close-circle</v-icon>
-            </div>
-          </div>
-        </v-card-text>
+          </v-card-text>
+        </div>
+        <div class="empty-cart" v-else>
+          <v-card-text>
+            <h1>Ops youre cart is empy</h1>
+          </v-card-text>
+        </div>
 
         <v-divider></v-divider>
 

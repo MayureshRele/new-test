@@ -146,7 +146,6 @@ export default defineComponent({
     ]);
 
     const searchData = () => {
-      console.log(search.value, "this is search");
       store.dispatch(Actions.SEARCH_QUERY, search.value);
     };
 
@@ -174,7 +173,7 @@ export default defineComponent({
       isCartModal,
       CartCount,
       search,
-      searchData
+      searchData,
     };
   },
 });
