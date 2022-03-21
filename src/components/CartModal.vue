@@ -51,7 +51,7 @@
           <v-spacer></v-spacer>
           <div class="grey--text text-darken-1">Cart Total</div>
           <v-card-text class="text-h6"
-            >${{ cartModalController.priceTotal }}</v-card-text
+            >${{ priceTotal }}</v-card-text
           >
         </v-card-actions>
       </v-card>
