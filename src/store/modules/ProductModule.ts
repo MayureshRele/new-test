@@ -89,6 +89,13 @@ export default class ProductModule extends VuexModule implements IProduct {
         this.ProductList.splice(this.ProductList.findIndex(product => product.id === data.id), 1)
     }
 
+
+    @Mutation
+    [Mutations.SET_EMPTY_CART]() {
+        this.SelectedProduct = []
+        this.CartCount = 0
+    }
+
     @Action
     [Actions.ADD_PRODUCT](payload: IProduct) {
         if (payload) {
@@ -129,5 +136,10 @@ export default class ProductModule extends VuexModule implements IProduct {
     @Action
     [Actions.DELETE_PRODUCT](payload: IProduct) {
         store.commit(Mutations.SET_REMOVE_PRODUCT, payload)
+    }
+
+    @Action
+    [Actions.EMPTY_CART]() {
+        store.commit(Mutations.SET_EMPTY_CART)
     }
 }

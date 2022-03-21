@@ -49,6 +49,7 @@ export default class AuthModule extends VuexModule implements IUserDetails {
     @Action
     [Actions.LOGOUT]() {
         this.context.commit(Mutations.REMOVE_USER);
+        this.context.commit(Mutations.SET_EMPTY_CART);
     }
 
 }

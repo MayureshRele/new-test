@@ -11,7 +11,7 @@
           <v-card-text v-for="item in product" :key="item.id">
             <div class="cartContainer d-flex">
               <v-img
-                src="https://picsum.photos/510/300?random"
+                :src="item.image"
                 class="cartImage"
                 contain
               ></v-img>
