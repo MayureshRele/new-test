@@ -12,7 +12,8 @@ export default class ProductModule extends VuexModule implements IProduct {
     price = 0
     ProductList: IProduct[] = [];
     SelectedProduct: IProduct[] = [];
-    CartCount = 0
+    CartCount = 0;
+    SearchQueryData = ""
 
     /**
      * Authenticate user
@@ -31,6 +32,10 @@ export default class ProductModule extends VuexModule implements IProduct {
         return this.CartCount
     }
 
+    get GetSearchQueryData() {
+        return this.SearchQueryData
+    }
+
     @Mutation
     [Mutations.SET_PRODUCT](data: IProduct) {
         this.ProductList.push(data);
@@ -41,9 +46,13 @@ export default class ProductModule extends VuexModule implements IProduct {
             data.qty = this.SelectedProduct.length + 1
             this.SelectedProduct.push(data)
         } else {
-            this.SelectedProduct.map((ele) => ele.id === data.id ? ( ele.qty = ele.qty + 1) : (data.qty = data.qty + 1, this.SelectedProduct.push(data)))
+            this.SelectedProduct.map((ele) => ele.id === data.id ? (ele.qty = ele.qty + 1) : (data.qty = data.qty + 1, this.SelectedProduct.push(data)))
 
         }
+    }
+    @Mutation
+    [Mutations.SET_SEARCH_QUERY](data: string) {
+        this.SearchQueryData = data;
     }
 
     @Mutation
@@ -76,6 +85,11 @@ export default class ProductModule extends VuexModule implements IProduct {
     @Action
     [Actions.ADD_CART_COUNT]() {
         this.context.commit(Mutations.SET_CART_COUNT);
+    }
+
+    @Action
+    [Actions.SEARCH_QUERY](payload: string) {
+        this.context.commit(Mutations.SET_SEARCH_QUERY, payload);
     }
 
 }

@@ -13,21 +13,19 @@
           class="text-white"
           prepend-inner-icon="mdi-magnify"
           label="Search"
+          @input="searchData"
         ></v-text-field>
         <v-spacer></v-spacer>
         <v-toolbar-items>
           <div class="menu-item">
             <v-btn>Home<v-icon class="ml-2">mdi-home-outline</v-icon></v-btn>
 
-            <v-badge
-              color="primary"
-              :content="CartCount"
-            >
+            <v-badge color="primary" :content="CartCount">
               <v-btn @click="modalController.open"
                 >Cart<v-icon class="ml-2">mdi-cart-outline</v-icon></v-btn
               ></v-badge
             >
-  
+
             <v-btn>Logout<v-icon class="ml-2">mdi-logout</v-icon></v-btn>
           </div>
         </v-toolbar-items>
@@ -71,7 +69,9 @@
                   <v-icon>mdi-cart-outline</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                  <v-list-tile-title @click="modalController.open" >Cart</v-list-tile-title>
+                  <v-list-tile-title @click="modalController.open"
+                    >Cart</v-list-tile-title
+                  >
                 </v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
@@ -123,6 +123,7 @@ export default defineComponent({
     const store = useStore();
     const dialog = ref(false);
     const isCartModal = ref(false);
+    const search = ref("");
     const nav = ref([
       {
         icon: "home-outline",
@@ -144,6 +145,11 @@ export default defineComponent({
       },
     ]);
 
+    const searchData = () => {
+      console.log(search.value, "this is search");
+      store.dispatch(Actions.SEARCH_QUERY, search.value);
+    };
+
     const modalController = reactive({
       open() {
         isCartModal.value = true;
@@ -158,15 +164,17 @@ export default defineComponent({
     });
 
     const CartCount = computed(() => {
-      return store.getters.CartQtyCount
-    })
+      return store.getters.CartQtyCount;
+    });
     return {
       Products,
       nav,
       dialog,
       modalController,
       isCartModal,
-      CartCount
+      CartCount,
+      search,
+      searchData
     };
   },
 });

@@ -38,12 +38,7 @@
 
 <script lang="ts">
 import { useStore } from "vuex";
-import {
-  defineComponent,
-  computed,
-  reactive,
-  ref,
-} from "@vue/runtime-core";
+import { defineComponent, computed, reactive, ref } from "@vue/runtime-core";
 import { IProduct } from "../../interface/IProduct";
 import Product from "../../components/Product.vue";
 import Modal from "../../components/Modal.vue";
@@ -58,8 +53,16 @@ export default defineComponent({
   },
   setup(props, emitter) {
     const store = useStore();
+
+    const searchData = computed(() => {
+      return store.getters.GetSearchQueryData;
+    });
     const Products = computed(() => {
-      return store.getters.products;
+      let productsArray = store.getters.products;
+      let  filteredList = productsArray.filter((product:any) => {
+        return product.name.toLowerCase().includes(searchData.value.toLowerCase())
+      })
+      return filteredList;
     });
     const isAddModal = ref(false);
     const EditProduct = ref<IProduct>({

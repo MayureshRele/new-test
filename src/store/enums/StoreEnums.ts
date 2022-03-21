@@ -6,7 +6,8 @@ enum Actions {
     ADD_TO_CART = "AddToCart",
     REMOVE_FROM_CART = "RemoveFromCart",
     IS_MODAL = "IsModal",
-    ADD_CART_COUNT = "AddCartCount"
+    ADD_CART_COUNT = "AddCartCount",
+    SEARCH_QUERY = "SearchQuery"
 }
 
 enum Mutations {
@@ -15,7 +16,8 @@ enum Mutations {
     REMOVE_USER = "RemoveUser",
     SET_CART = "SetCart",
     SET_MODAL = "SetModal",
-    SET_CART_COUNT = "SetCartCount"
+    SET_CART_COUNT = "SetCartCount",
+    SET_SEARCH_QUERY = "SetSearchQuery"
 }
 
 export { Actions, Mutations };
