@@ -6,10 +6,6 @@
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
-          clearable
-          flat
-          solo-inverted
-          hide-details
           class="text-white"
           prepend-inner-icon="mdi-magnify"
           label="Search"
@@ -86,10 +82,6 @@
               </v-list-tile>
               <v-text-field
                 v-model="search"
-                clearable
-                flat
-                solo-inverted
-                hide-details
                 prepend-inner-icon="mdi-magnify"
                 label="Search"
               ></v-text-field>
