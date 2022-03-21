@@ -50,9 +50,7 @@
           </v-btn>
           <v-spacer></v-spacer>
           <div class="grey--text text-darken-1">Cart Total</div>
-          <v-card-text class="text-h6"
-            >${{ priceTotal }}</v-card-text
-          >
+          <v-card-text class="text-h6">${{ priceTotal }}</v-card-text>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -82,16 +80,21 @@ export default defineComponent({
       return store.getters.Ismodal;
     });
 
-    const productList = computed(() => {
-      return store.getters.products;
+    const selectedproductList = computed(() => {
+      return store.getters.cartList;
     });
 
     const priceTotal = computed(() => {
       let total = 0;
-      productList.value.forEach((element: any) => {
-        total += element.qty * element.price;
-      });
-      return total
+
+      if (selectedproductList.value.length > 0) {
+        selectedproductList.value.forEach((element: any) => {
+          total += element.qty * element.price;
+        });
+        return total;
+      } else {
+        return (total = 0);
+      }
     });
 
     const modalController = reactive({
@@ -111,7 +114,7 @@ export default defineComponent({
       isModal,
       modalController,
       cartModalController,
-      priceTotal
+      priceTotal,
     };
   },
 });
