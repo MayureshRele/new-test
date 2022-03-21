@@ -26,7 +26,7 @@
         <v-btn icon @click="modalController.open" class="mx-2">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
-        <v-btn icon class="mx-2">
+        <v-btn icon class="mx-2" @click="productListController.deleteProduct">
           <v-icon>mdi-trash-can-outline</v-icon>
         </v-btn>
         <v-btn icon @click="productListController.addToCart" class="mx-2">
@@ -79,7 +79,7 @@ export default defineComponent({
         isEditModal.value = false;
       },
     });
-    
+
     const productListController = reactive({
       addToCart() {
         store.dispatch(Actions.ADD_CART_COUNT);
@@ -87,6 +87,9 @@ export default defineComponent({
       },
       checkedit(product: IProduct) {
         emitter.emit("editproductData", product);
+      },
+      deleteProduct() {
+        store.dispatch(Actions.DELETE_PRODUCT, props.product);
       },
     });
 

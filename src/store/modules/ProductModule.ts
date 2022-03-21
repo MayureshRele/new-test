@@ -1,6 +1,7 @@
 import { Module, Mutation, VuexModule, Action } from "vuex-module-decorators";
 import { Actions, Mutations } from "@/store/enums/StoreEnums";
 import { IProduct } from '../../interface/IProduct'
+import store from "..";
 
 @Module
 export default class ProductModule extends VuexModule implements IProduct {
@@ -54,25 +55,10 @@ export default class ProductModule extends VuexModule implements IProduct {
             if (ifExists.length === 0) {
                 data.qty += 1
                 this.SelectedProduct.push(data)
-            }else {
+            } else {
                 ifExists[0].qty += 1
             }
         }
-        // if (this.SelectedProduct.length === 0) {
-        //     data.qty = this.SelectedProduct.length + 1
-        //     this.SelectedProduct.push(data)
-        // } else {
-        //     this.SelectedProduct.forEach(element => {
-        //         if (element.id === data.id) {
-        //             element.qty += 1
-        //         }
-        //         if (element.id !== data.id) {
-        //             data.qty += 1
-        //             this.SelectedProduct.push(data)
-        //         }
-        //     });
-        // }
-
     }
     @Mutation
     [Mutations.SET_SEARCH_QUERY](data: string) {
@@ -82,6 +68,16 @@ export default class ProductModule extends VuexModule implements IProduct {
     @Mutation
     [Mutations.SET_CART_COUNT]() {
         this.CartCount += 1
+    }
+
+    @Mutation
+    [Mutations.SET_REMOVE_FROM_CART](data: IProduct) {
+        this.SelectedProduct.splice(this.SelectedProduct.findIndex(product => product.id === data.id), 1)
+    }
+
+    @Mutation
+    [Mutations.SET_REMOVE_PRODUCT](data: IProduct) {
+        this.ProductList.splice(this.ProductList.findIndex(product => product.id === data.id), 1)
     }
 
     @Action
@@ -116,4 +112,13 @@ export default class ProductModule extends VuexModule implements IProduct {
         this.context.commit(Mutations.SET_SEARCH_QUERY, payload);
     }
 
+    @Action
+    [Actions.REMOVE_FROM_CART](payload: IProduct) {
+        store.commit(Mutations.SET_REMOVE_FROM_CART, payload)
+    }
+
+    @Action
+    [Actions.DELETE_PRODUCT](payload: IProduct) {
+        store.commit(Mutations.SET_REMOVE_PRODUCT, payload)
+    }
 }

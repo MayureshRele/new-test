@@ -2,12 +2,13 @@ enum Actions {
     LOGIN_USER = "LoginUser",
     ADD_PRODUCT = "AddProduct",
     EDIT_PRODUCT = "EditProduct",
-    LOGOUT= "LogoutUser",
+    LOGOUT = "LogoutUser",
     ADD_TO_CART = "AddToCart",
     REMOVE_FROM_CART = "RemoveFromCart",
     IS_MODAL = "IsModal",
     ADD_CART_COUNT = "AddCartCount",
-    SEARCH_QUERY = "SearchQuery"
+    SEARCH_QUERY = "SearchQuery",
+    DELETE_PRODUCT = "RemoveProduct"
 }
 
 enum Mutations {
@@ -18,7 +19,9 @@ enum Mutations {
     SET_MODAL = "SetModal",
     SET_CART_COUNT = "SetCartCount",
     SET_SEARCH_QUERY = "SetSearchQuery",
-    SET_LOGOUT_USER = "SetLogOut"
+    SET_LOGOUT_USER = "SetLogOut",
+    SET_REMOVE_FROM_CART = "SetRemoveFromCart",
+    SET_REMOVE_PRODUCT = "SetRemoveProduct"
 }
 
 export { Actions, Mutations };
