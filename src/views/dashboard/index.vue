@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <Button
+      v-if="getCurrentUser.id === 1"
       depressed
       color="blue-grey darken-3"
       class="text-white"
@@ -56,6 +57,9 @@ export default defineComponent({
 
     const searchData = computed(() => {
       return store.getters.GetSearchQueryData;
+    });
+    const getCurrentUser = computed(() => {
+      return store.getters.currentUser;
     });
     const Products = computed(() => {
       let productsArray = store.getters.products;
@@ -116,6 +120,7 @@ export default defineComponent({
       Products,
       modalController,
       EditProduct,
+      getCurrentUser,
     };
   },
 });

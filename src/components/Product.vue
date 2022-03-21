@@ -23,13 +23,13 @@
       </div>
 
       <div class="action-btn">
-        <v-btn icon @click="modalController.open" class="mx-2">
+        <v-btn   v-if="getCurrentUser.id === 1" icon @click="modalController.open" class="mx-2">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
-        <v-btn icon class="mx-2" @click="productListController.deleteProduct">
+        <v-btn v-if="getCurrentUser.id === 1" icon class="mx-2" @click="productListController.deleteProduct">
           <v-icon>mdi-trash-can-outline</v-icon>
         </v-btn>
-        <v-btn icon @click="productListController.addToCart" class="mx-2">
+        <v-btn  icon @click="productListController.addToCart" class="mx-2">
           <v-icon>mdi-plus-thick</v-icon>
         </v-btn>
       </div>
@@ -50,7 +50,7 @@ import { IProduct } from "@/interface/IProduct";
 import { useStore } from "vuex";
 import { Actions } from "@/store/enums/StoreEnums";
 import Modal from "./Modal.vue";
-import { defineComponent, PropType, reactive, ref } from "@vue/runtime-core";
+import { computed, defineComponent, PropType, reactive, ref } from "@vue/runtime-core";
 export default defineComponent({
   name: "card-custom",
   data() {
@@ -70,6 +70,10 @@ export default defineComponent({
   setup(props, emitter) {
     const store = useStore();
     const isEditModal = ref(false);
+
+    const getCurrentUser = computed(() => {
+     return store.getters.currentUser
+    })
     const modalController = reactive({
       open() {
         isEditModal.value = true;
@@ -97,6 +101,7 @@ export default defineComponent({
       isEditModal,
       modalController,
       productListController,
+      getCurrentUser
     };
   },
 });

@@ -19,7 +19,7 @@ export default class AuthModule extends VuexModule implements IUserDetails {
      * @returns User
      */
 
-    get cuurentUser() {
+    get currentUser() {
         return this.userDetails
     }
 
